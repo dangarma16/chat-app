@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "echo 'No build step needed for Node.js app'"
+    "build": "echo 'No build step needed for Node.js app'",
+    "vercel-build": "echo 'Vercel build completed'"
   },
   "keywords": ["voice-chat", "webrtc", "screen-sharing", "real-time"],
   "author": "Your Name",

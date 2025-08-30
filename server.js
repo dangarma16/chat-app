@@ -106,6 +106,15 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log('server running on port 3000');
-});
+// Vercel için port yapılandırması
+const port = process.env.PORT || 3000;
+
+// Vercel'de çalışırken server.listen() çağrılmamalı
+if (process.env.NODE_ENV !== 'production') {
+  server.listen(port, () => {
+    console.log(`server running on port ${port}`);
+  });
+}
+
+// Vercel için export
+module.exports = app;
