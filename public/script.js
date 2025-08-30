@@ -41,31 +41,42 @@ const rtcConfig = {
     ]
 };
 
-// Socket connection events
-socket.on('connect', () => {
-    console.log('Connected to server');
-    isConnected = true;
-    reconnectAttempts = 0;
-    updateConnectionStatus();
-});
-
-socket.on('disconnect', () => {
-    console.log('Disconnected from server');
-    isConnected = false;
-    updateConnectionStatus();
-    if (reconnectAttempts < maxReconnectAttempts) {
-        reconnectAttempts++;
-        console.log(`Attempting to reconnect... (Attempt ${reconnectAttempts}/${maxReconnectAttempts})`);
-        setTimeout(() => {
-            socket.connect();
-        }, 1000 * reconnectAttempts); // Exponential backoff
-    } else {
-        console.log('Max reconnect attempts reached. Please refresh the page.');
-        addMessage('⚠️ Bağlantı kesildi. Lütfen sayfayı yenileyin.', 'red');
+// Helper function to add messages - moved to top to fix hoisting issue
+function addMessage(text, color = 'black', type = 'message') {
+    const messagesList = document.getElementById('messagesList');
+    if (!messagesList) return; // Don't try to add messages if element doesn't exist yet
+    
+    const messageDiv = document.createElement('div');
+    
+    // Add timestamp
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    // Format message based on type
+    let messageClass = '';
+    if (type === 'system') messageClass = 'message-system';
+    else if (type === 'voice') messageClass = 'message-voice';
+    else if (type === 'mute') messageClass = 'message-mute';
+    else if (type === 'join') messageClass = 'message-join';
+    else if (type === 'leave') messageClass = 'message-leave';
+    
+    messageDiv.innerHTML = `
+        <div class="${messageClass}">
+            <span style="color: #72767d; font-size: 12px; margin-right: 8px;">${timeString}</span>
+            ${text}
+        </div>
+    `;
+    
+    if (color !== 'black') {
+        messageDiv.style.color = color;
     }
-});
+    
+    messageDiv.classList.add('fade-in');
+    messagesList.appendChild(messageDiv);
+    messagesList.scrollTop = messagesList.scrollHeight;
+}
 
-// Update connection status display
+// Update connection status display - moved to top to fix hoisting issue
 function updateConnectionStatus() {
     const statusElement = document.getElementById('connectionStatus');
     if (statusElement) {
@@ -645,39 +656,6 @@ function createPeerConnection(targetUsername) {
         });
     
     return pc;
-}
-
-// Helper function to add messages
-function addMessage(text, color = 'black', type = 'message') {
-    const messagesList = document.getElementById('messagesList');
-    const messageDiv = document.createElement('div');
-    
-    // Add timestamp
-    const now = new Date();
-    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
-    // Format message based on type
-    let messageClass = '';
-    if (type === 'system') messageClass = 'message-system';
-    else if (type === 'voice') messageClass = 'message-voice';
-    else if (type === 'mute') messageClass = 'message-mute';
-    else if (type === 'join') messageClass = 'message-join';
-    else if (type === 'leave') messageClass = 'message-leave';
-    
-    messageDiv.innerHTML = `
-        <div class="${messageClass}">
-            <span style="color: #72767d; font-size: 12px; margin-right: 8px;">${timeString}</span>
-            ${text}
-        </div>
-    `;
-    
-    if (color !== 'black') {
-        messageDiv.style.color = color;
-    }
-    
-    messageDiv.classList.add('fade-in');
-    messagesList.appendChild(messageDiv);
-    messagesList.scrollTop = messagesList.scrollHeight;
 }
 
 // Update users list display with mute status indicators
