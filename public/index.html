@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Professional Voice Chat</title>
+    <title>Profesyonel Sesli Sohbet</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <!-- Login Screen -->
+    <!-- Giriş Ekranı -->
     <div id="login">
-        <h2>Professional Voice Chat</h2>
-        <p>Enterprise-grade voice communication with advanced audio controls and secure connections</p>
-        <input type="text" id="username" placeholder="Enter your username">
-        <button onclick="join()">Join Chat</button>
+        <h2>Profesyonel Sesli Sohbet</h2>
+        <p>Gelişmiş ses teknolojisi ile kristal netliğinde ses kalitesi yaşayın</p>
+        <input type="text" id="username" placeholder="Kullanıcı adınızı girin">
+        <button onclick="join()">Sohbete Katıl</button>
         <div class="features">
-            <p>High-quality voice chat</p>
-            <p>Advanced audio controls</p>
-            <p>Secure peer-to-peer connections</p>
-            <p>Professional interface</p>
+            <p>Yüksek kaliteli sesli sohbet</p>
+            <p>Gelişmiş ses kontrolleri</p>
+            <p>Güvenli peer-to-peer bağlantılar</p>
+            <p>Profesyonel arayüz</p>
         </div>
     </div>
     
-    <!-- Main Chat Interface -->
+    <!-- Ana Sohbet Arayüzü -->
     <div id="chat" style="display:none;">
-        <!-- Left Sidebar -->
+        <!-- Sol Kenar Çubuğu -->
         <div id="users">
-            <h3>Online Users</h3>
+            <h3>Çevrimiçi Kullanıcılar</h3>
             <ul id="usersList"></ul>
             
-            <!-- Voice Controls -->
+            <!-- Ses Kontrolleri -->
             <div id="voiceControls">
-                <h4>Voice Chat</h4>
-                <button id="startVoice" onclick="startVoice()">Start Voice</button>
-                <button id="stopVoice" onclick="stopVoice()" style="display:none;">Stop Voice</button>
-                <div id="voiceStatus">Voice: Off</div>
+                <h4>Sesli Sohbet</h4>
+                <button id="startVoice" onclick="startVoice()">Sesi Başlat</button>
+                <button id="stopVoice" onclick="stopVoice()" style="display:none;">Sesi Durdur</button>
+                <div id="voiceStatus">Ses: Kapalı</div>
                 
-                <!-- Volume Controls -->
+                <!-- Ses Kontrolleri -->
                 <div id="volumeControls" style="display:none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #40444b;">
-                    <h5>Volume Settings</h5>
+                    <h5>Ses Ayarları</h5>
                     
-                    <!-- Mute Buttons -->
+                    <!-- Sessiz Butonları -->
                     <div style="display: flex; gap: 5px; margin-bottom: 15px;">
                         <button id="micMuteButton" onclick="toggleMicrophoneMute()" 
                                 style="flex: 1; padding: 8px; background-color: #43b581; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;">
-                            Mute Mic
+                            Mikrofonu Sessize Al
                         </button>
                         <button id="speakerMuteButton" onclick="toggleSpeakerMute()" 
                                 style="flex: 1; padding: 8px; background-color: #43b581; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;">
-                            Mute Speaker
+                            Hoparlörü Sessize Al
                         </button>
                     </div>
                     
-                    <!-- Screen Share Button -->
+                    <!-- Ekran Paylaşım Butonu -->
                     <div style="margin-bottom: 15px;">
                         <button id="screenShareButton" onclick="toggleScreenShare()" 
                                 style="width: 100%; padding: 10px; background-color: #3b82f6; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px; font-weight: 500;">
-                            Share Screen
+                            Ekranı Paylaş
                         </button>
                     </div>
                     
-                    <!-- Debug Button -->
+                    <!-- Hata Ayıklama Butonu -->
                     <div style="margin-bottom: 15px;">
                         <button onclick="testMuting()" 
                                 style="width: 100%; padding: 8px; background-color: #6c757d; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;">
-                            Debug Muting
+                            Sessiz Durumunu Test Et
                         </button>
                     </div>
                     
                     <div style="margin-bottom: 10px;">
                         <label style="font-size: 12px; color: #b9bbbe; display: block; margin-bottom: 5px;">
-                            Microphone: <span id="micVolumeDisplay">100%</span>
+                            Mikrofon: <span id="micVolumeDisplay">100%</span>
                         </label>
                         <input type="range" id="micVolumeSlider" min="0" max="100" value="100" 
                                style="width: 100%;" oninput="updateMicrophoneVolume(this.value)">
@@ -77,7 +77,7 @@
                     
                     <div style="margin-bottom: 10px;">
                         <label style="font-size: 12px; color: #b9bbbe; display: block; margin-bottom: 5px;">
-                            Incoming Audio: <span id="incomingVolumeDisplay">100%</span>
+                            Gelen Ses: <span id="incomingVolumeDisplay">100%</span>
                         </label>
                         <input type="range" id="incomingVolumeSlider" min="0" max="100" value="100" 
                                style="width: 100%;" oninput="updateIncomingVolume(this.value)">
@@ -86,40 +86,40 @@
             </div>
         </div>
         
-        <!-- Center Screen Viewer -->
+        <!-- Orta Ekran Görüntüleyici -->
         <div id="screenViewer">
             <div id="screenViewerHeader">
-                <h3>Screen Share</h3>
+                <h3>Ekran Paylaşımı</h3>
                 <div id="screenViewerControls">
-                    <button id="maximizeChatButton" onclick="toggleChatSize()" title="Maximize Chat">
+                    <button id="maximizeChatButton" onclick="toggleChatSize()" title="Sohbeti Büyüt">
                         ⬜
                     </button>
-                    <button id="fullScreenButton" onclick="toggleFullScreen()" title="Full Screen" style="display:none;">
+                    <button id="fullScreenButton" onclick="toggleFullScreen()" title="Tam Ekran" style="display:none;">
                         ⛶
                     </button>
                 </div>
             </div>
             <div id="screenViewerContent">
-                <div id="noScreenMessage">No one is sharing their screen</div>
+                <div id="noScreenMessage">Kimse ekranını paylaşmıyor</div>
                 <video id="screenVideo" autoplay muted style="display:none;"></video>
             </div>
         </div>
         
-        <!-- Right Chat Area (Minimized) -->
+        <!-- Sağ Sohbet Alanı (Küçültülmüş) -->
         <div id="messages" class="chat-minimized">
-            <!-- Messages Header -->
+            <!-- Mesajlar Başlığı -->
             <div id="messagesHeader">
-                <h3>General Chat</h3>
-                <div id="connectionStatus">Connected</div>
+                <h3>Genel Sohbet</h3>
+                <div id="connectionStatus">Bağlandı</div>
             </div>
             
-            <!-- Messages List -->
+            <!-- Mesajlar Listesi -->
             <div id="messagesList"></div>
             
-            <!-- Message Input -->
+            <!-- Mesaj Girişi -->
             <div id="input">
-                <textarea id="messageInput" placeholder="Type your message here... (Shift+Enter for new line)" rows="1"></textarea>
-                <button onclick="sendMessage()">Send</button>
+                <textarea id="messageInput" placeholder="Mesajınızı buraya yazın... (Yeni satır için Shift+Enter)" rows="1"></textarea>
+                <button onclick="sendMessage()">Gönder</button>
             </div>
         </div>
     </div>
