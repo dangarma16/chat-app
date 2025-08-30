@@ -61,7 +61,7 @@ socket.on('disconnect', () => {
         }, 1000 * reconnectAttempts); // Exponential backoff
     } else {
         console.log('Max reconnect attempts reached. Please refresh the page.');
-        addMessage('⚠️ Connection lost. Please refresh the page.', 'red');
+        addMessage('⚠️ Bağlantı kesildi. Lütfen sayfayı yenileyin.', 'red');
     }
 });
 
@@ -70,10 +70,10 @@ function updateConnectionStatus() {
     const statusElement = document.getElementById('connectionStatus');
     if (statusElement) {
         if (isConnected) {
-            statusElement.innerHTML = '🟢 Connected';
+            statusElement.innerHTML = '🟢 Bağlandı';
             statusElement.style.color = '#43b581';
         } else {
-            statusElement.innerHTML = '🔴 Disconnected';
+            statusElement.innerHTML = '🔴 Bağlantı Kesildi';
             statusElement.style.color = '#f04747';
         }
     }
@@ -92,7 +92,7 @@ function autoResizeTextarea() {
 function join() {
     const username = document.getElementById('username').value.trim();
     if (username === '') {
-        addMessage('⚠️ Please enter a username', 'orange', 'system');
+        addMessage('⚠️ Lütfen bir kullanıcı adı girin', 'orange', 'system');
         return;
     }
     
@@ -102,8 +102,8 @@ function join() {
     document.getElementById('chat').style.display = 'flex';
     
     // Add welcome message
-    addMessage(`🎉 Welcome to the chat, ${username}!`, 'green', 'system');
-    addMessage('💡 Use the voice controls on the left to start voice chat', 'blue', 'system');
+    addMessage(`🎉 Sohbete hoş geldin, ${username}!`, 'green', 'system');
+    addMessage('💡 Sol taraftaki ses kontrollerini kullanarak sesli sohbete başlayın', 'blue', 'system');
 }
 
 // Send text message
@@ -196,13 +196,13 @@ function toggleMicrophoneMute() {
     
     const muteButton = document.getElementById('micMuteButton');
     if (isMicrophoneMuted) {
-        muteButton.textContent = 'Unmute Mic';
+        muteButton.textContent = 'Mikrofonu Aç';
         muteButton.style.backgroundColor = '#dc3545';
-        addMessage('Microphone muted - others cannot hear you', 'orange', 'mute');
+        addMessage('Mikrofonunuz kapalı - diğerleri sizin sesi duyamaz', 'orange', 'mute');
     } else {
-        muteButton.textContent = 'Mute Mic';
+        muteButton.textContent = 'Mikrofonu Kapat';
         muteButton.style.backgroundColor = '#43b581';
-        addMessage('Microphone unmuted - others can hear you', 'green', 'mute');
+        addMessage('Mikrofonunuz açık - diğerleri sizin sesi duyabilir', 'green', 'mute');
     }
     
     // Emit mute status to other users
@@ -236,13 +236,13 @@ function toggleSpeakerMute() {
     
     const muteButton = document.getElementById('speakerMuteButton');
     if (isSpeakerMuted) {
-        muteButton.textContent = 'Unmute Speaker';
+        muteButton.textContent = 'Konuşmacıyı Aç';
         muteButton.style.backgroundColor = '#dc3545';
-        addMessage('Speaker muted - you cannot hear others', 'orange', 'mute');
+        addMessage('Konuşmacınız kapalı - diğerleri sizin sesi duyamaz', 'orange', 'mute');
     } else {
-        muteButton.textContent = 'Mute Speaker';
+        muteButton.textContent = 'Konuşmacıyı Kapat';
         muteButton.style.backgroundColor = '#43b581';
-        addMessage('Speaker unmuted - you can hear others', 'green', 'mute');
+        addMessage('Konuşmacınız açık - diğerleri sizin sesi duyabilir', 'green', 'mute');
     }
     
     // Emit mute status to other users
@@ -296,7 +296,7 @@ async function startVoice() {
         // Update UI
         document.getElementById('startVoice').style.display = 'none';
         document.getElementById('stopVoice').style.display = 'block';
-        document.getElementById('voiceStatus').textContent = 'Voice: On';
+        document.getElementById('voiceStatus').textContent = 'Ses: Aktif';
         document.getElementById('voiceStatus').style.color = '#43b581';
         
         // Show volume controls
@@ -308,11 +308,11 @@ async function startVoice() {
         socket.emit('voice_started', currentUsername);
         
         // Show success message
-        addMessage('Voice chat started! You can now speak with other users.', 'green', 'voice');
+        addMessage('Sesli sohbet başladı! Artık diğer kullanıcılarla konuşabilirsiniz.', 'green', 'voice');
         
     } catch (error) {
         console.error('Error starting voice:', error);
-        addMessage('Could not access microphone: ' + error.message, 'red', 'system');
+        addMessage('Mikrofon erişimi yapılamadı: ' + error.message, 'red', 'system');
     }
 }
 
@@ -355,7 +355,7 @@ function stopVoice() {
     // Update UI
     document.getElementById('startVoice').style.display = 'block';
     document.getElementById('stopVoice').style.display = 'none';
-    document.getElementById('voiceStatus').textContent = 'Voice: Off';
+    document.getElementById('voiceStatus').textContent = 'Ses: Kapalı';
     document.getElementById('voiceStatus').style.color = '#666';
     
     // Hide volume controls
@@ -375,7 +375,7 @@ function stopVoice() {
     // Notify others
     socket.emit('voice_stopped', currentUsername);
     
-    addMessage('Voice chat stopped. You are no longer transmitting audio.', 'red', 'voice');
+    addMessage('Sesli sohbet durduruldu. Artık ses akışınız yok.', 'red', 'voice');
 }
 
 // Toggle screen sharing
@@ -448,10 +448,10 @@ async function toggleScreenShare() {
             
             // Update button
             const button = document.getElementById('screenShareButton');
-            button.textContent = 'Stop Sharing';
+            button.textContent = 'Ekranı Durdur';
             button.style.backgroundColor = '#dc3545';
             
-            addMessage('Screen sharing started with audio', 'green', 'system');
+            addMessage('Ekran paylaşımı başladı', 'green', 'system');
             
             // Notify other users
             socket.emit('screen_share_update', {
@@ -471,7 +471,7 @@ async function toggleScreenShare() {
         
     } catch (error) {
         console.error('Error with screen sharing:', error);
-        addMessage('Could not start screen sharing: ' + error.message, 'red', 'system');
+        addMessage('Ekran paylaşımı başlatılamadı: ' + error.message, 'red', 'system');
     }
 }
 
@@ -509,10 +509,10 @@ function stopScreenShare() {
     
     // Update button
     const button = document.getElementById('screenShareButton');
-    button.textContent = 'Share Screen';
+    button.textContent = 'Ekranı Paylaş';
     button.style.backgroundColor = '#3b82f6';
     
-    addMessage('Screen sharing stopped', 'orange', 'system');
+    addMessage('Ekran paylaşımı durduruldu', 'orange', 'system');
     
     // Notify other users
     socket.emit('screen_share_update', {
@@ -575,7 +575,7 @@ function createPeerConnection(targetUsername) {
                 audio.volume = isSpeakerMuted ? 0 : incomingVolume;
                 document.body.appendChild(audio);
                 
-                addMessage(`Hearing ${targetUsername}`, 'blue', 'voice');
+                addMessage(`${targetUsername} sesi duyuyorsunuz`, 'blue', 'voice');
             }
         } else if (event.track.kind === 'video') {
             // Handle incoming video (screen share)
@@ -593,7 +593,7 @@ function createPeerConnection(targetUsername) {
             }
             
             // Add message that screen sharing started
-            addMessage(`${targetUsername} started sharing their screen`, 'blue', 'system');
+            addMessage(`${targetUsername} ekranını paylaşıyor`, 'blue', 'system');
         }
     };
     
@@ -601,9 +601,9 @@ function createPeerConnection(targetUsername) {
     pc.onconnectionstatechange = () => {
         console.log('Connection state changed:', targetUsername, pc.connectionState);
         if (pc.connectionState === 'connected') {
-            addMessage(`✅ Connected to ${targetUsername}`, 'green', 'system');
+            addMessage(`✅ ${targetUsername} ile bağlantı kuruldu`, 'green', 'system');
         } else if (pc.connectionState === 'failed' || pc.connectionState === 'disconnected') {
-            addMessage(`❌ Connection to ${targetUsername} failed`, 'red', 'system');
+            addMessage(`❌ ${targetUsername} ile bağlantı kurulamadı`, 'red', 'system');
         }
     };
     
@@ -641,7 +641,7 @@ function createPeerConnection(targetUsername) {
         })
         .catch(error => {
             console.error('Error creating offer for:', targetUsername, error);
-            addMessage(`❌ Failed to connect to ${targetUsername}`, 'red', 'system');
+            addMessage(`❌ ${targetUsername} ile bağlantı kurulamadı`, 'red', 'system');
         });
     
     return pc;
@@ -696,10 +696,10 @@ function getMuteStatusIndicator(username) {
     
     let indicators = '';
     if (status.microphone) {
-        indicators += ' <span title="Microphone muted" style="color: #dc3545; font-size: 12px;">🔇</span>';
+        indicators += ' <span title="Mikrofon kapalı" style="color: #dc3545; font-size: 12px;">🔇</span>';
     }
     if (status.speaker) {
-        indicators += ' <span title="Speaker muted" style="color: #dc3545; font-size: 12px;">🔇</span>';
+        indicators += ' <span title="Konuşmacı kapalı" style="color: #dc3545; font-size: 12px;">🔇</span>';
     }
     
     return indicators;
@@ -717,14 +717,14 @@ function toggleChatSize() {
         messages.classList.remove('chat-minimized');
         messages.classList.add('chat-maximized');
         maximizeButton.textContent = '⬜';
-        maximizeButton.title = 'Minimize Chat';
+        maximizeButton.title = 'Sohbeti Küçült';
         console.log('Chat maximized');
     } else {
         // Minimize chat
         messages.classList.remove('chat-maximized');
         messages.classList.add('chat-minimized');
         maximizeButton.textContent = '⬜';
-        maximizeButton.title = 'Maximize Chat';
+        maximizeButton.title = 'Sohbeti Büyüt';
         console.log('Chat minimized');
     }
 }
@@ -741,7 +741,7 @@ function toggleFullScreen() {
         console.log('Exiting full screen mode');
         chat.classList.remove('fullscreen-mode');
         fullScreenButton.textContent = '⛶';
-        fullScreenButton.title = 'Full Screen';
+        fullScreenButton.title = 'Tam Ekran';
         document.body.style.overflow = 'auto';
         
         // Ensure the button is visible
@@ -751,7 +751,7 @@ function toggleFullScreen() {
         console.log('Entering full screen mode');
         chat.classList.add('fullscreen-mode');
         fullScreenButton.textContent = '⛶';
-        fullScreenButton.title = 'Exit Full Screen';
+        fullScreenButton.title = 'Tam Ekranı Kapat';
         document.body.style.overflow = 'hidden';
         
         // Ensure the button is visible
@@ -861,14 +861,14 @@ function showVolumeContextMenu(event, username) {
     
     contextMenu.innerHTML = `
         <div style="color: #e2e8f0; font-size: 14px; margin-bottom: 10px; font-weight: 500;">
-            ${username}'s Screen Volume
+            ${username}'in Ekranının Ses Seviyesi
         </div>
         <div style="margin-bottom: 8px;">
             <input type="range" id="screenVolumeSlider" min="0" max="100" value="100" 
                    style="width: 100%; height: 6px;" oninput="updateScreenVolume(this.value)">
         </div>
         <div style="color: #94a3b8; font-size: 12px; text-align: center;">
-            Volume: <span id="screenVolumeDisplay">100%</span>
+            Ses: <span id="screenVolumeDisplay">100%</span>
         </div>
     `;
     
@@ -960,7 +960,7 @@ socket.on('message', (data) => {
 
 socket.on('user joined', (username) => {
     if (currentUsername) { // Only show join messages if user has joined
-        addMessage(`${username} joined the chat`, 'green', 'join');
+        addMessage(`${username} sohbete katıldı`, 'green', 'join');
         
         // Create voice connection if we're in voice chat
         if (isVoiceActive && username !== currentUsername) {
@@ -971,7 +971,7 @@ socket.on('user joined', (username) => {
 
 socket.on('user left', (username) => {
     if (currentUsername) { // Only show leave messages if user has joined
-        addMessage(`${username} left the chat`, 'red', 'leave');
+        addMessage(`${username} sohbetten ayrıldı`, 'red', 'leave');
         
         // Clean up connection
         if (peerConnections[username]) {
@@ -1012,7 +1012,7 @@ socket.on('users list', (users) => {
 // Voice chat events
 socket.on('voice_started', (username) => {
     if (currentUsername && username !== currentUsername) { // Only process if user has joined
-        addMessage(`${username} started voice chat`, 'blue', 'voice');
+        addMessage(`${username} sesli sohbete başladı`, 'blue', 'voice');
         
         if (isVoiceActive) {
             createPeerConnection(username);
@@ -1022,7 +1022,7 @@ socket.on('voice_started', (username) => {
 
 socket.on('voice_stopped', (username) => {
     if (currentUsername && username !== currentUsername) { // Only process if user has joined
-        addMessage(`${username} stopped voice chat`, 'orange', 'voice');
+        addMessage(`${username} sesli sohbeti durdurdu`, 'orange', 'voice');
         
         // Clean up
         if (peerConnections[username]) {
@@ -1076,10 +1076,10 @@ socket.on('offer', async (data) => {
             target: data.from
         });
         
-        addMessage(`📡 Responding to ${data.from}'s voice call`, 'blue', 'system');
+        addMessage(`📡 ${data.from}'in sesli aramasına yanıt veriliyor`, 'blue', 'system');
     } catch (error) {
         console.error('Error handling offer from:', data.from, error);
-        addMessage(`❌ Failed to respond to ${data.from}'s voice call`, 'red', 'system');
+        addMessage(`❌ ${data.from}'in sesli aramasına yanıt verilemedi`, 'red', 'system');
     }
 });
 
@@ -1093,10 +1093,10 @@ socket.on('answer', async (data) => {
         try {
             console.log('Setting remote description (answer) for:', data.from);
             await pc.setRemoteDescription(new RTCSessionDescription(data.answer));
-            addMessage(`✅ Voice connection established with ${data.from}`, 'green', 'system');
+            addMessage(`✅ Ses bağlantısı ${data.from} ile kuruldu`, 'green', 'system');
         } catch (error) {
             console.error('Error handling answer from:', data.from, error);
-            addMessage(`❌ Failed to establish voice connection with ${data.from}`, 'red', 'system');
+            addMessage(`❌ Ses bağlantısı ${data.from} ile kurulamadı`, 'red', 'system');
         }
     }
 });
@@ -1132,9 +1132,9 @@ socket.on('mute_status_update', (data) => {
     userMuteStatus[username][type] = muted;
     
     // Show notification
-    const action = muted ? 'muted' : 'unmuted';
-    const device = type === 'microphone' ? 'microphone' : 'speaker';
-    addMessage(`${username} ${action} their ${device}`, muted ? 'orange' : 'green', 'mute');
+    const action = muted ? 'kapalı' : 'açık';
+    const device = type === 'microphone' ? 'mikrofon' : 'konuşmacı';
+    addMessage(`${username} ${device}larını ${action}ladı`, muted ? 'orange' : 'green', 'mute');
 });
 
 // Handle screen sharing updates from other users
@@ -1144,9 +1144,9 @@ socket.on('screen_share_update', (data) => {
     const { username, sharing } = data;
     
     if (sharing) {
-        addMessage(`${username} started sharing their screen`, 'blue', 'system');
+        addMessage(`${username} ekranını paylaşıyor`, 'blue', 'system');
     } else {
-        addMessage(`${username} stopped sharing their screen`, 'orange', 'system');
+        addMessage(`${username} ekranını durdurdu`, 'orange', 'system');
         
         // Hide screen share if this user was sharing
         const screenVideo = document.getElementById('screenVideo');

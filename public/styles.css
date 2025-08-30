@@ -1,4 +1,4 @@
-/* Modern Professional Voice Chat App Styles */
+/* Modern Profesyonel Sesli Sohbet Uygulaması Stilleri */
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +15,7 @@ body {
     line-height: 1.6;
 }
 
-/* Login Screen */
+/* Giriş Ekranı */
 #login {
     display: flex;
     flex-direction: column;
@@ -96,7 +96,7 @@ body {
 
 #login button:active {
     transform: translateY(0);
-} 
+}
 
 .features {
     margin-top: 3rem;
@@ -121,14 +121,14 @@ body {
     background: rgba(255, 255, 255, 0.08);
 }
 
-/* Main Chat Interface */
+/* Ana Sohbet Arayüzü */
 #chat {
     display: flex;
     height: 100vh;
     background: #0f1419;
 }
 
-/* Left Sidebar - Users & Voice Controls */
+/* Sol Kenar Çubuğu - Kullanıcılar ve Ses Kontrolleri */
 #users {
     width: 280px;
     background: #1a1f2e;
@@ -186,7 +186,7 @@ body {
     flex-shrink: 0;
 }
 
-/* Voice Controls Section */
+/* Ses Kontrolleri Bölümü */
 #voiceControls {
     background: #0f1419;
     margin: 16px;
@@ -247,7 +247,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Volume Controls */
+/* Ses Kontrolleri */
 #volumeControls {
     background: #1a1f2e;
     border-radius: 6px;
@@ -308,7 +308,7 @@ body {
     border: 2px solid #ffffff;
 }
 
-/* Mute Buttons */
+/* Sessiz Butonları */
 #micMuteButton, #speakerMuteButton {
     flex: 1;
     padding: 8px 12px;
@@ -328,7 +328,7 @@ body {
     color: #ffffff;
 }
 
-/* Center Screen Viewer */
+/* Orta Ekran Görüntüleyici */
 #screenViewer {
     flex: 1;
     background: #0f1419;
@@ -402,7 +402,7 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* Right Chat Area - Minimized by default */
+/* Sağ Sohbet Alanı - Varsayılan olarak küçültülmüş */
 #messages {
     width: 350px;
     background: #1a1f2e;
@@ -421,7 +421,7 @@ body {
     width: 600px;
 }
 
-/* When chat is minimized, screen viewer should expand */
+/* Sohbet küçültüldüğünde ekran görüntüleyici genişler */
 #screenViewer {
     flex: 1;
     background: #0f1419;
@@ -429,15 +429,15 @@ body {
     flex-direction: column;
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
-    min-width: 0; /* Allow flex item to shrink */
+    min-width: 0; /* Flex öğesinin küçülmesine izin ver */
 }
 
-/* Ensure proper spacing when chat is minimized */
+/* Sohbet küçültüldüğünde uygun boşluk sağla */
 #messages.chat-minimized + #screenViewer {
     margin-right: 0;
 }
 
-/* Full Screen Mode */
+/* Tam Ekran Modu */
 .fullscreen-mode #users {
     display: none;
 }
@@ -483,12 +483,12 @@ body {
     display: none;
 }
 
-/* Ensure full screen button is always visible in full screen mode */
+/* Tam ekran modunda tam ekran butonunun her zaman görünür olmasını sağla */
 .fullscreen-mode #fullScreenButton {
     display: block !important;
 }
 
-/* Screen Share Volume Control */
+/* Ekran Paylaşımı Ses Kontrolü */
 #screenVideo {
     cursor: pointer;
 }
@@ -509,7 +509,7 @@ body {
     display: none;
 }
 
-/* Messages Header */
+/* Mesajlar Başlığı */
 #messagesHeader {
     padding: 24px;
     background: #1a1f2e;
@@ -547,7 +547,7 @@ body {
     border-radius: 50%;
 }
 
-/* Messages List */
+/* Mesajlar Listesi */
 #messagesList {
     flex: 1;
     padding: 24px;
@@ -575,7 +575,7 @@ body {
     font-weight: 500;
 }
 
-/* Message Input Area */
+/* Mesaj Giriş Alanı */
 #input {
     padding: 24px;
     background: #1a1f2e;
@@ -634,7 +634,7 @@ body {
     transform: translateY(0);
 }
 
-/* Scrollbar Styling */
+/* Kaydırma Çubuğu Stilleri */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -652,7 +652,7 @@ body {
     background: #4b5563;
 }
 
-/* Responsive Design */
+/* Duyarlı Tasarım */
 @media (max-width: 768px) {
     #users {
         width: 240px;
@@ -667,7 +667,7 @@ body {
     }
 }
 
-/* Animation Classes */
+/* Animasyon Sınıfları */
 .fade-in {
     animation: fadeIn 0.3s ease-out;
 }
@@ -698,13 +698,13 @@ body {
     }
 }
 
-/* Status Indicators */
+/* Durum Göstergeleri */
 .status-online { color: #10b981; }
 .status-away { color: #f59e0b; }
 .status-dnd { color: #ef4444; }
 .status-offline { color: #6b7280; }
 
-/* Message Types */
+/* Mesaj Türleri */
 .message-system { 
     color: #94a3b8; 
     font-style: italic; 
