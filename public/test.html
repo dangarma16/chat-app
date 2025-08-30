@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Test</title>
+</head>
+<body>
+    <h1>Socket.IO Test</h1>
+    <div id="status">Loading...</div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.getElementById('status').textContent = 'Checking Socket.IO...';
+        
+        if (typeof io === 'undefined') {
+            document.getElementById('status').textContent = 'ERROR: Socket.IO not loaded!';
+            document.getElementById('status').style.color = 'red';
+        } else {
+            document.getElementById('status').textContent = 'Socket.IO loaded successfully!';
+            document.getElementById('status').style.color = 'green';
+            
+            const socket = io();
+            
+            socket.on('connect', function() {
+                document.getElementById('status').textContent = 'Connected to server!';
+                document.getElementById('status').style.color = 'green';
+            });
+            
+            socket.on('connect_error', function(error) {
+                document.getElementById('status').textContent = 'Connection error: ' + error;
+                document.getElementById('status').style.color = 'red';
+            });
+        }
+    </script>
+</body>
+</html> 
